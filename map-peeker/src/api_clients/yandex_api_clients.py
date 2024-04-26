@@ -14,7 +14,7 @@ class StaticAPIClient(IAPIClient):
     def base_url(self) -> str:
         return self._BASE_URL
 
-    def get(self, coordinate: Coordinate) -> bytes:
+    def get_map_fragment(self, coordinate: Coordinate) -> bytes:
 
         with Session() as s:
 
