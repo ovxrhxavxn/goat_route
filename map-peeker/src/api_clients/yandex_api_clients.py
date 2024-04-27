@@ -28,6 +28,12 @@ class StaticAPIClient(IAPIClient):
 
     _BASE_URL = 'https://static-maps.yandex.ru/v1?'
 
+    def __init__(self, apikey: str):
+
+        super().__init__(apikey=apikey)
+
+        self._map_image = StaticAPIClient.MapImage()
+
     @property
     def base_url(self) -> str:
         return self._BASE_URL
@@ -77,9 +83,9 @@ class HTTPGeocoderClient(IAPIClient, IGeocoder):
 
     def __init__(self, apikey: str):
 
-        self._deserializer = HTTPGeocoderClient.Deserializer()
-
         super().__init__(apikey=apikey)
+
+        self._deserializer = HTTPGeocoderClient.Deserializer()
 
     @property
     def base_url(self):
