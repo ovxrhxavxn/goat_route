@@ -37,7 +37,7 @@ class Address:
     Класс адреса
     '''
 
-    def __init__(self, country: str, city: str, street: str, house_number: int):
+    def __init__(self, country: str, city: str, street: str, house_number: str | int):
 
         self._country = country
         self._city = city

@@ -1,20 +1,20 @@
 from requests import Session, HTTPError
 import json
 
-from . api_client_interfaces import IGeocoder, IAPIClient
+from . api_client_interfaces import IGeocoder, IYandexAPIClient
 from .. geolocation import Address, Coordinate
 
 
-class StaticAPIClient(IAPIClient):
+class StaticAPIClient(IYandexAPIClient):
 
     '''
-    Класс для взаимодествия с Yandex Static API
+    Класс для взаимодествия с Yandex Static API.
     '''
 
     class MapImage:
 
         '''
-        Вспомогательный класс, сохраняющий полученный фрагмент карты
+        Вспомогательный класс, сохраняющий полученный фрагмент карты.
         '''
 
         def save(self, image_bytes: bytes) -> bool:
@@ -49,7 +49,7 @@ class StaticAPIClient(IAPIClient):
     def get_map_fragment(self, coordinate: Coordinate) -> None:
 
         '''
-        Получить PNG фрагмент карты по координатам
+        Получить PNG фрагмент карты по координатам.
         '''
 
         with Session() as s:
@@ -62,16 +62,16 @@ class StaticAPIClient(IAPIClient):
         return self._map_image.save(response.content)
 
     
-class HTTPGeocoderClient(IAPIClient, IGeocoder):
+class HTTPGeocoderClient(IYandexAPIClient, IGeocoder):
 
     '''
-    Класс для взаимодействия с Yandex HTTP Geocoder 
+    Класс для взаимодействия с Yandex HTTP Geocoder.
     '''
 
     class Extractor:
 
         '''
-        Вспомогательный класс-экстрактор для HTTPGeocoderClient
+        Вспомогательный класс-экстрактор для HTTPGeocoderClient.
         '''
 
         @staticmethod
@@ -105,7 +105,7 @@ class HTTPGeocoderClient(IAPIClient, IGeocoder):
 
         super().__init__(apikey=apikey)
 
-        self._deserializer = HTTPGeocoderClient.Extractor()
+        self._extractor = HTTPGeocoderClient.Extractor()
 
     @property
     def base_url(self):
@@ -126,7 +126,7 @@ class HTTPGeocoderClient(IAPIClient, IGeocoder):
             print(e.response.status_code)
 
         else:
-            return self._deserializer.extract_address(response.text)
+            return self._extractor.extract_address(response.text)
     
     def get_coordinates(self, address: Address) -> Coordinate:
 
@@ -147,4 +147,4 @@ class HTTPGeocoderClient(IAPIClient, IGeocoder):
             print(e.response.status_code)
         
         else:
-            return self._deserializer.extract_coordinate(response.text)
+            return self._extractor.extract_coordinate(response.text)

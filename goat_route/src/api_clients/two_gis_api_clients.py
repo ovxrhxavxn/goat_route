@@ -10,3 +10,6 @@ class RoutingAPIClient(I2GISAPIClient):
     def base_url(self):
         return self._BASE_URL
     
+
+class PlacesAPICLient(I2GISAPIClient):
+    pass

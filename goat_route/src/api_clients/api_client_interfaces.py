@@ -5,7 +5,7 @@ from .. geolocation import Coordinate, Address
 class IAPIClient(ABC):
 
     '''
-    Интерфейс для клиентов API
+    Интерфейс для клиентов API.
     '''
 
     def __init__(self, apikey: str):
@@ -18,12 +18,18 @@ class IAPIClient(ABC):
         '''
         Базовый URL для запросов
         '''
-        pass   
+        pass  
+
+class IYandexAPIClient(IAPIClient):
+
+    '''Интерфейс для клиентов Yandex API'''
+
+    pass
 
 class I2GISAPIClient(IAPIClient):
     
     '''
-    Интерфейс для клиентов 2GIS API 
+    Интерфейс для клиентов 2GIS API.
     '''
 
     _BASE_URL = 'http://routing.api.2gis.com/routing/7.0.0/global?'  
@@ -31,14 +37,14 @@ class I2GISAPIClient(IAPIClient):
 class IGeocoder(ABC):
 
     '''
-    Интерфейс для клиентов геокодера
+    Интерфейс для клиентов геокодера.
     '''
 
     @abstractmethod
     def get_address(self, coordinates: Coordinate) -> Address:
 
         '''
-        Получить адрес по координатам
+        Получить адрес по координатам.
         '''
 
         pass
@@ -47,7 +53,7 @@ class IGeocoder(ABC):
     def get_coordinates(self, address: Address) -> Coordinate:
 
         '''
-        Получить координаты по адресу
+        Получить координаты по адресу.
         '''
 
         pass
