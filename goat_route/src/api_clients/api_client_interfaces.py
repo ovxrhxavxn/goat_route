@@ -2,37 +2,40 @@ from abc import ABC, abstractmethod
 
 from .. geolocation import Coordinate, Address
 
-class IAPIClient(ABC):
+class __IAPIClient(ABC):
 
     '''
     Интерфейс для клиентов API.
     '''
 
     def __init__(self, apikey: str):
+
         self._apikey = apikey 
 
     @property
     @abstractmethod
-    def base_url(self):
+    def base_endpoint(self):
+        pass
+    
 
-        '''
-        Базовый URL для запросов
-        '''
-        pass  
+class IYandexAPIClient(__IAPIClient):
 
-class IYandexAPIClient(IAPIClient):
+    '''
+    Интерфейс для клиентов Yandex API
+    '''
 
-    '''Интерфейс для клиентов Yandex API'''
 
-    pass
-
-class I2GISAPIClient(IAPIClient):
+class I2GISAPIClient(__IAPIClient):
     
     '''
     Интерфейс для клиентов 2GIS API.
     '''
 
-    _BASE_URL = 'http://routing.api.2gis.com/routing/7.0.0/global?'  
+class INavitelAPICLient(__IAPIClient):
+
+    '''
+    Интерфейс для клиентов Navitel API
+    '''
 
 class IGeocoder(ABC):
 
@@ -41,7 +44,7 @@ class IGeocoder(ABC):
     '''
 
     @abstractmethod
-    def get_address(self, coordinates: Coordinate) -> Address:
+    def get_address(self):
 
         '''
         Получить адрес по координатам.
@@ -50,10 +53,16 @@ class IGeocoder(ABC):
         pass
 
     @abstractmethod
-    def get_coordinates(self, address: Address) -> Coordinate:
+    def get_coordinates(self):
 
         '''
         Получить координаты по адресу.
         '''
 
+        pass
+
+class ITSPSolver(ABC):
+
+    @abstractmethod
+    def solve_tsp(self):
         pass
