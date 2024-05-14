@@ -1,13 +1,14 @@
+from dataclasses import dataclass
+
+@dataclass
 class Coordinate:
 
     '''
     Класс координат
     '''
 
-    def __init__(self, latitude: float, longitude: float):
-
-        self._latitude = latitude
-        self._longitude = longitude
+    _longitude: float
+    _latitude: float
 
     def __str__(self) -> str:
         return f'{self.longitude}, {self.latitude}'
@@ -30,19 +31,17 @@ class Coordinate:
 
         return self._latitude
     
-    
+@dataclass 
 class Address:
+
+    _country: str
+    _city: str
+    _street: str
+    _house_number: int | str
 
     '''
     Класс адреса
     '''
-
-    def __init__(self, country: str, city: str, street: str, house_number: str | int):
-
-        self._country = country
-        self._city = city
-        self._street = street
-        self._house_number = house_number
 
     def __str__(self) -> str:
         return f'{self.country}, {self.city}, {self.street}, {self.building_number}'
