@@ -7,8 +7,9 @@ class Coordinate:
     Класс координат
     '''
 
-    _longitude: float
     _latitude: float
+    _longitude: float
+    
 
     def __str__(self) -> str:
         return f'{self.longitude}, {self.latitude}'
