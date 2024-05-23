@@ -1,0 +1,2 @@
+class MapWindowView:
+    pass
