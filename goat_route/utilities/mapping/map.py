@@ -1,30 +1,42 @@
 import folium
+import osmnx as ox
 
 from pathlib import Path
-
+from folium import Icon
 from .geolocation import Coordinate
+from ..tsp_solver import TSPSolver
 
 class Map(folium.Map):
     
     def put_marker(self, coordinates: Coordinate) -> None:
-        
+
         folium.Marker(
             
             location=[coordinates.latitude, coordinates.longitude]
             
         ).add_to(self)
 
-    def put_line(self, coord_from: Coordinate, coord_to: Coordinate) -> None:
+    def put_tsp_solution_markers(self, tsp_solution: TSPSolver.Solution):
 
-        folium.PolyLine(
+        num = 0
 
-            locations=[
+        for node in tsp_solution.solved_nodes:
 
-                [coord_from.latitude, coord_from.longitude],
+            coord: Coordinate = tsp_solution.coords_nodes.get(node)
 
-                [coord_to.latitude, coord_to.longitude]
-            ]
-        ).add_to(self)
+            folium.Marker(
+
+                location=[coord.latitude, coord.longitude],
+                icon=Icon(icon=f'{num}', prefix='fa')
+
+            ).add_to(self)
+
+            num+=1
+
+    def plot_tsp_route(self, solution: TSPSolver.Solution):
+
+        for route in solution.route:
+            ox.plot_route_folium(G=solution.graph, route=route, route_map=self)
 
     def save(self, path: str = 'views\\resources\\map.html'):
 
