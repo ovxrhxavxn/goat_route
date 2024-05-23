@@ -7,9 +7,8 @@ class Coordinate:
     Класс координат
     '''
 
-    _latitude: float
     _longitude: float
-    
+    _latitude: float
 
     def __str__(self) -> str:
         return f'{self.longitude}, {self.latitude}'
@@ -31,6 +30,11 @@ class Coordinate:
         '''
 
         return self._latitude
+    
+    @property
+    def tuple(self) -> tuple:
+
+        return (self._longitude, self._latitude)
     
 @dataclass 
 class Address:
