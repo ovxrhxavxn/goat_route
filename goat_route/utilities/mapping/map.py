@@ -16,7 +16,7 @@ class Map(folium.Map):
             
         ).add_to(self)
 
-    def put_tsp_solution_markers(self, tsp_solution: TSPSolver.Solution):
+    def put_tsp_markers(self, tsp_solution: TSPSolver.Solution):
 
         num = 0
 
@@ -39,5 +39,5 @@ class Map(folium.Map):
             ox.plot_route_folium(G=solution.graph, route=route, route_map=self)
 
     def save(self, path: str = 'views\\resources\\map.html'):
-
+        
         super().save(Path(path).resolve())
