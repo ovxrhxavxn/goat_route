@@ -1,8 +1,12 @@
-from ..views.map_window_view import MapWindowView
+from .controller_interface import IController
 
-class mapWindowController:
+class MapWindowController(IController):
+
+    def __init__(self, view, model) -> None:
+
+        super().__init__(view, model)
+
+        self.show_view()
     
-    def __init__(self, model):
-
-        self._model = model
-        self._view = MapWindowView()
+    def show_view(self) -> None:
+        self._view.show()
