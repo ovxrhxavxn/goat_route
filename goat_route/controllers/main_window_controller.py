@@ -1,8 +1,12 @@
-from ..views.main_window_view import MainWindowView
+from .controller_interface import IController
 
-class MainWindowController:
+class MainWindowController(IController):
+    
+    def __init__(self, view, model) -> None:
 
-    def __init__(self, model):
+        super().__init__(view, model)
 
-        self._model = model
-        self._view = MainWindowView()
+        self.show_view()
+    
+    def show_view(self) -> None:
+        self._view.show()
