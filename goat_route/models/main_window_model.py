@@ -1,15 +1,14 @@
 from .model_interface import IModel
-from ..utilities.observer import Observer
+from utilities.observer import Observer
 
 class MainWindowModel(IModel):
 
-    def ___init__(self) -> None:
+    def __init__(self) -> None:
 
-        super()._init__()
+        super().__init__()
 
     def add_observer(self, observer: Observer):
         self._observers.append(observer)
-        
 
     def remove_observer(self, observer: Observer):
         self._observers.remove(observer)

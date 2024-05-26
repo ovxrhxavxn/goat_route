@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from ..controllers.controller_interface import IController
-from ..models.model_interface import IModel
+from controllers.controller_interface import IController
+from models.model_interface import IModel
 
 class IView(ABC):
 

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from ..models.model_interface import IModel
+from models.model_interface import IModel
 
 class IController(ABC):
 
@@ -9,5 +9,5 @@ class IController(ABC):
         self._model = model
 
     @abstractmethod
-    def show_view(self):
+    def _show_view(self):
         pass
