@@ -1,19 +1,19 @@
-import sys
-
-from PySide6.QtWidgets import QApplication
-
-from os import getenv
 from dotenv import load_dotenv
 
-from utilities.mapping.map import Map
-from utilities.mapping.geolocation import Coordinate
-from views.gui.main_window import MainWindow
-
+from models.main_window_model import MainWindowModel
+from controllers.main_window_controller import MainWindowController
+from views.ui.gui import MainWindowGUI
 
 def main():
+
     load_dotenv()
 
+    MainWindowController(
+        
+        MainWindowGUI(),
+        MainWindowModel()
+        
+        )
     
-
 if __name__ == '__main__':
     main()
