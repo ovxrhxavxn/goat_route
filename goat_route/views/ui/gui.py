@@ -1,19 +1,30 @@
+import PIL.Image
 import customtkinter as CTk
-from PIL import Image
+from pathlib import WindowsPath
 
-class MainWindowGUI(CTk.CTk):
+from .gui_interface import IGUI
+
+class MainWindowGUI(IGUI, CTk.CTk):
+
     def __init__(self):
+
         super().__init__()
 
         self.geometry("460x640")  # Устанавливаем размеры окна
-        self.title("Simple Interface")  # Устанавливаем заголовок окна
+        self.title('Главное меню')  # Устанавливаем заголовок окна
         self.resizable(False, False)  # Запрещаем изменение размеров окна
 
         # Устанавливаем тему по умолчанию "Dark"
         CTk.set_appearance_mode("Dark")
 
         # Загружаем логотип и добавляем его в окно
-        self.logo = CTk.CTkImage(dark_image=Image.open("logoP.png"), size=(460, 150))
+        self.logo = CTk.CTkImage(
+
+            dark_image=PIL.Image.open(WindowsPath("views\\ui\\resources\\logoP.png").resolve()),
+            size=(460, 150)
+
+            )
+        
         self.logo_label = CTk.CTkLabel(master=self, text="", image=self.logo)
         self.logo_label.grid(row=0, column=0, padx=(20, 20), pady=(20, 0))
 
@@ -37,7 +48,7 @@ class MainWindowGUI(CTk.CTk):
         self.settings_frame.grid(row=3, column=0, padx=(20, 20), pady=(20, 0), sticky="ew")
 
         # Добавляем радиокнопки в фрейм настроек
-        self.radio_var = tk.StringVar()  # Переменная для связи радиокнопок между собой
+        self.radio_var = CTk.StringVar()  # Переменная для связи радиокнопок между собой
 
         self.radio_option1 = CTk.CTkRadioButton(master=self.settings_frame, text="On Foot",
                                                  variable=self.radio_var, value="On Foot")
@@ -52,7 +63,7 @@ class MainWindowGUI(CTk.CTk):
         self.radio_option3.grid(row=1, column=2, padx=(0, 10), sticky="ew")
 
         # Добавляем кнопку "Генерировать путь" и привязываем ее к методу generate_path
-        self.generate_path_button = CTk.CTkButton(master=self, text="Генерировать путь", command=self.generate_path)
+        self.generate_path_button = CTk.CTkButton(master=self, text="Генерировать путь", command=None)
         self.generate_path_button.grid(row=4, column=0, padx=(20, 20), pady=(10, 10), sticky="ew")
 
     def add_input_entry(self):
@@ -74,5 +85,5 @@ class MainWindowGUI(CTk.CTk):
             if len(self.entry_list) == self.max_entries:  # Отключаем кнопку, если достигнут максимум
                 self.btn_add.configure(state="disabled")
 
-
-    
+    def init(self):
+        self.mainloop()
