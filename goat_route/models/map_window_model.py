@@ -1,4 +1,4 @@
-from .model_interface import IModel
+from .interfaces import IModel
 
 class MapWindowModel(IModel):
     

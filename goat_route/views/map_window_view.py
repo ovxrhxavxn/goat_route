@@ -1,4 +1,4 @@
-from .view_interface import IView
+from .interfaces import IView
 # from .ui.gui import MapWindowUI
 from utilities.observer import Observer
 

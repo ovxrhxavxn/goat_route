@@ -1,4 +1,4 @@
-from .controller_interface import IController
+from .interfaces import IController
 from views.map_window_view import MapWindowView
 
 class MapWindowController(IController):
