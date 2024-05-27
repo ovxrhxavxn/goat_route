@@ -4,3 +4,4 @@ venv
 *cache*
 .pyc
 map.html
+*.db
