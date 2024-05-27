@@ -38,6 +38,6 @@ class Map(folium.Map):
         for route in solution.route:
             ox.plot_route_folium(G=solution.graph, route=route, route_map=self)
 
-    def save(self, path: str = 'views\\resources\\map.html'):
+    def save(self, path: str = 'views\\ui\\resources\\map.html'):
         
         super().save(Path(path).resolve())
