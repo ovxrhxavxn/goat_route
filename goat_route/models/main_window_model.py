@@ -1,4 +1,4 @@
-from .model_interface import IModel
+from .interfaces import IModel
 from utilities.observer import Observer
 
 class MainWindowModel(IModel):
@@ -12,6 +12,10 @@ class MainWindowModel(IModel):
 
     def remove_observer(self, observer: Observer):
         self._observers.remove(observer)
+
+    def generate_path(self):
+
+        pass
 
     def notify_observers(self):
 

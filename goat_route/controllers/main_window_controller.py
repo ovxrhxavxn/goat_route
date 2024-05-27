@@ -1,6 +1,6 @@
-from .controller_interface import IController
+from .interfaces import IController
 from views.main_window_view import MainWindowView
-from views.ui.gui_interface import IGUI
+from views.ui.interfaces import IGUI
 
 class MainWindowController(IController):
     
@@ -8,9 +8,13 @@ class MainWindowController(IController):
 
         super().__init__(model)
 
-        self._view = MainWindowView(self, view_gui, model)
+        self._view = MainWindowView(view_gui, self, model)
 
         self._show_view()
     
     def _show_view(self) -> None:
         self._view.show()
+
+    def generate_path(self, entries_data):
+
+        pass
