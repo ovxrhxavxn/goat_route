@@ -66,3 +66,16 @@ class Address:
     @property
     def building_number(self) -> int:
         return self._house_number
+    
+    @staticmethod
+    def convert_from(address: str) -> "Address":
+
+        splited_address = address.split(', ')
+
+        return Address(
+
+            splited_address[0],
+            splited_address[1],
+            splited_address[2],
+            splited_address[3]
+        )

@@ -45,10 +45,11 @@ class TSPSolver:
 
     def __build_graph_from_city(self, address: Address, network_type: NetworkType):
 
-        return ox.graph_from_place(
+        return ox.graph_from_address(
             f'{address.country}, {address.city}', 
-            network_type=network_type, 
-            truncate_by_edge=True
+            network_type=network_type,
+            truncate_by_edge=True,
+            dist=20000
         )
     
     def __get_nodes_to_visit(self, graph, coordinates: list[Coordinate]):
