@@ -43,7 +43,8 @@ class TSPSolver:
     def __init__(self) -> None:
         ox.config(use_cache=True)
 
-    def __build_graph_from_city(self, address: Address, network_type):
+    def __build_graph_from_city(self, address: Address, network_type: NetworkType):
+
         return ox.graph_from_place(
             f'{address.country}, {address.city}', 
             network_type=network_type, 
@@ -76,7 +77,7 @@ class TSPSolver:
             ))
         return routes
 
-    def _build_graph_and_find_nodes(self, address: Address, coordinates: list[Coordinate], network_type):
+    def _build_graph_and_find_nodes(self, address: Address, coordinates: list[Coordinate], network_type: NetworkType):
         graph = self.__build_graph_from_city(address, network_type)
         nodes_to_visit = self.__get_nodes_to_visit(graph, coordinates)
         return graph, nodes_to_visit
