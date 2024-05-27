@@ -1,4 +1,5 @@
 import webbrowser
+import os
 
 from pathlib import WindowsPath
 
@@ -32,8 +33,8 @@ class MainWindowController(IController, GUIObserver):
     def handle_generate_path(self, args):
 
         self._model.generate_path(args)
-
-        webbrowser.open_new_tab(url=WindowsPath('goat_route\\views\\ui\\resources\\map.html').resolve().as_uri())
+            
+        webbrowser.open(url=WindowsPath('views\\ui\\resources\\map.html').resolve().as_uri())
 
 
     def _show_view(self) -> None:
