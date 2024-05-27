@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from models.model_interface import IModel
+from models.interfaces import IModel
 
 class IController(ABC):
 
