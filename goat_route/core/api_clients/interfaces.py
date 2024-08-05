@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
-from utilities.mapping.geolocation import Coordinate, Address
+from core.mapping.geolocation import Coordinate, Address
+
 
 class __IAPIClient(ABC):
 

@@ -3,7 +3,7 @@ import json
 from requests import Session, HTTPError, RequestException
 
 from .interfaces import IGeocoder, IYandexAPIClient
-from utilities.mapping.geolocation import Address, Coordinate
+from core.mapping.geolocation import Address, Coordinate
 
 
 class HTTPGeocoderClient(IYandexAPIClient, IGeocoder):
