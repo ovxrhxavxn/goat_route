@@ -1,8 +1,9 @@
 from dotenv import load_dotenv
 
-from models.main_window_model import MainWindowModel
-from controllers.main_window_controller import MainWindowController
-from views.ui.gui import MainWindowGUI
+from mvc.controllers import MainWindowController
+from mvc.models import MainWindowModel
+from mvc.views import MainWindowView
+
 
 def main():
 
@@ -10,7 +11,7 @@ def main():
 
     MainWindowController(
         
-        MainWindowGUI(),
+        MainWindowView,
         MainWindowModel()
         
         )

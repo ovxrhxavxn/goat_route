@@ -1,24 +1,25 @@
-import PIL.Image
 import customtkinter as CTk
+import PIL
+
+from ctkmvc.view import View
 from pathlib import WindowsPath
 
-from .interfaces import IGUI
-from ..interfaces import IView
-from utilities.tsp_solver import TSPSolver
-from utilities.observer import IObservable, GUIObserver
+from core.tsp_solver import TSPSolver
+from resources.resource import Resource
 
-class MainWindowGUI(IGUI, IObservable, CTk.CTk):
 
-    def __init__(self):
+class MainWindowView(View):
 
-        super().__init__()
+    def __init__(self, controller, model):
 
-        self._observers = []
+        super().__init__(controller, model)
+
+        self._model.add_observer(self)
 
         self.geometry("460x640")  # Устанавливаем размеры окна
         self.title('G.O.A.T Route')  # Устанавливаем заголовок окна
         self.resizable(False, False)  # Запрещаем изменение размеров окна
-        self.iconbitmap(WindowsPath("views\\ui\\resources\\icon.ico").resolve())
+        self.iconbitmap(WindowsPath(Resource.ICON).resolve())
 
         # Устанавливаем тему по умолчанию "Dark"
         CTk.set_appearance_mode("Dark")
@@ -26,7 +27,7 @@ class MainWindowGUI(IGUI, IObservable, CTk.CTk):
         # Загружаем логотип и добавляем его в окно
         self.logo = CTk.CTkImage(
 
-            dark_image=PIL.Image.open(WindowsPath("views\\ui\\resources\\logo.png").resolve()),
+            dark_image=PIL.Image.open(WindowsPath(Resource.LOGO).resolve()),
             size=(160, 160)
 
             )
@@ -71,22 +72,19 @@ class MainWindowGUI(IGUI, IObservable, CTk.CTk):
         for i, radio_button in enumerate(self._radio_buttons):
             radio_button.grid(row=0, column=i, padx=(0, 10), sticky="ew")
 
-        # Добавляем кнопку "Генерировать путь" и привязываем ее к методу generate_path
-        self.generate_path_button = CTk.CTkButton(master=self, text="Генерировать путь", command=self.generate_path)
+        # Добавляем кнопку "Генерировать путь" и привязываем ее к методу контроллера generate_path
+        self.generate_path_button = CTk.CTkButton(master=self, text="Генерировать путь", 
+                                                  
+                                                  command=lambda: self._controller.generate_path(
+                                                      
+                                                    addresses=self._get_addresses_list(),
+                                                    network_type = self._get_radio_button_value() 
+                                                    
+                                                  ))
+        
+
         self.generate_path_button.grid(row=4, column=0, padx=(20, 20), pady=(10, 10), sticky="ew")
 
-    def add_observer(self, observer: GUIObserver):
-        
-        self._observers.append(observer)
-
-    def remove_observer(self, observer: GUIObserver):
-        
-        self._observers.remove(observer)
-
-    def notify_observers(self, event_name, **args):
-        
-        for observer in self._observers:
-            observer.handle_event(event_name, **args)
 
     def _add_input_entry(self):
 
@@ -109,6 +107,7 @@ class MainWindowGUI(IGUI, IObservable, CTk.CTk):
             if len(self._entries_list) == self._max_entries:  # Отключаем кнопку, если достигнут максимум
                 self.btn_add.configure(state="disabled")
 
+
     def _get_addresses_list(self):
 
         addresses = []
@@ -118,21 +117,12 @@ class MainWindowGUI(IGUI, IObservable, CTk.CTk):
             addresses.append(value.get())
 
         return addresses
+    
 
     def _get_radio_button_value(self):
 
         return self._radio_var.get()
 
-    def generate_path(self):
 
-        self.notify_observers(
-            
-            self.generate_path.__name__,
-
-            addresses=self._get_addresses_list(),
-
-            network_type = self._get_radio_button_value()                                                    
-        )
-    
-    def init(self):
-        self.mainloop()
+    def model_is_changed(self):
+        pass

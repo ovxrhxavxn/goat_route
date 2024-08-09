@@ -4,7 +4,7 @@ import networkx as nx
 from networkx.algorithms.approximation.traveling_salesman import traveling_salesman_problem
 from enum import StrEnum
 
-from utilities.mapping.geolocation import Coordinate, Address
+from core.mapping.geolocation import Coordinate, Address
 
 class TSPSolver:
 
