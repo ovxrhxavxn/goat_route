@@ -5,6 +5,7 @@ from pathlib import Path
 from folium import Icon
 from .geolocation import Coordinate
 from ..tsp_solver import TSPSolver
+from resources.resource import Resource
 
 class Map(folium.Map):
     
@@ -38,6 +39,6 @@ class Map(folium.Map):
         for route in solution.route:
             ox.plot_route_folium(G=solution.graph, route=route, route_map=self)
 
-    def save(self, path: str = 'views\\ui\\resources\\map.html'):
+    def save(self, path: str = Resource.MAP):
         
         super().save(Path(path).resolve())
