@@ -1,4 +1,5 @@
 import webbrowser
+import multiprocessing
 
 from ctkmvc.controller import Controller
 from pathlib import WindowsPath
@@ -12,9 +13,13 @@ class MainWindowController(Controller):
 
         super().__init__(view_cls, model)
 
-
-    def generate_path(self, **args):
+    
+    def generate_path(self, **kwargs):
        
-       self._model.generate_path(args)
-            
-       webbrowser.open(url=WindowsPath(Resource.MAP).resolve().as_uri())
+        process = multiprocessing.Process(target=self._model.generate_path, kwargs=kwargs)
+
+        process.start()
+
+        # if not process.is_alive():
+
+        #     webbrowser.open(url=WindowsPath(Resource.MAP).resolve().as_uri())

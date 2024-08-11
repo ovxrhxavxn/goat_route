@@ -1,6 +1,7 @@
 import json
 
-from requests import Session, HTTPError, RequestException
+from aiohttp import ClientSession
+from aiohttp.web import HTTPError
 
 from .interfaces import IGeocoder, IYandexAPIClient
 from core.mapping.geolocation import Address, Coordinate
@@ -49,22 +50,19 @@ class HTTPGeocoderClient(IYandexAPIClient, IGeocoder):
     def base_endpoint(self):
         return self.__BASE_ENDPOINT
 
-    def get_address(self, coordinates: Coordinate) -> Address:
+    async def get_address(self, coordinates: Coordinate) -> Address:
 
         try:
         
-            with Session() as s:
+            async with ClientSession() as s:
 
-                response = s.get(
+                response = await s.get(
 
                     url=f'{self.__BASE_ENDPOINT}?apikey={self._apikey}&geocode={coordinates.longitude},{coordinates.latitude}&lang=ru_RU&format=json'
                 )      
         
         except HTTPError as e:
-            print(e.response.text)
-
-        except RequestException as e:
-            print(e.response.text)
+            print(e.text)
 
         else:
 
@@ -74,13 +72,13 @@ class HTTPGeocoderClient(IYandexAPIClient, IGeocoder):
             except Exception as e:
                 print('Что-то пошло не так... Повторите попытку позже.')
 
-    def get_coordinates(self, address: Address) -> Coordinate:
+    async def get_coordinates(self, address: Address) -> Coordinate:
 
         try:
         
-            with Session() as s:
+            async with ClientSession() as s:
 
-                response = s.get(
+                response = await s.get(
 
                     url=f'{self.__BASE_ENDPOINT}?apikey={self._apikey}' + 
                 
@@ -90,10 +88,7 @@ class HTTPGeocoderClient(IYandexAPIClient, IGeocoder):
                 )
 
         except HTTPError as e:
-            print(e.response.text)
-
-        except RequestException as e:
-            print(e.response.text)
+            print(e.text)
         
         else:
 

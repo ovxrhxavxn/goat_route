@@ -1,7 +1,6 @@
-from os import getenv
 from ctkmvc.model import ObservableModel
 
-from core.api_clients.yandex_api_clients import HTTPGeocoderClient
+from api_clients.yandex_api_clients import IGeocoder
 from core.tsp_solver import TSPSolver
 from core.mapping.geolocation import Address, Coordinate
 from core.mapping.map import Map
@@ -14,12 +13,7 @@ class MainWindowModel(ObservableModel):
         super().__init__()
 
 
-    def _get_coordinates(self, addresses):
-
-        geocoder = HTTPGeocoderClient(
-
-            getenv('GEOCODER_API_KEY')
-        )
+    async def _get_coordinates(self, addresses, geocoder: IGeocoder):
 
         coords = []
 
@@ -27,7 +21,7 @@ class MainWindowModel(ObservableModel):
 
             addr = Address.convert_from(address)
 
-            coords.append(geocoder.get_coordinates(addr))
+            coords.append(await geocoder.get_coordinates(addr))
 
         return coords
     
@@ -48,12 +42,12 @@ class MainWindowModel(ObservableModel):
         map.save()
 
 
-    def generate_path(self, data: dict):
+    async def generate_path(self, data: dict):
 
         addresses = data.get('addresses')
         network_type = data.get('network_type')
         
-        coords = self._get_coordinates(addresses)
+        coords = await self._get_coordinates(addresses)
 
         solution = self._solve_tsp(Address.convert_from(addresses[0]), coords, network_type)
 
