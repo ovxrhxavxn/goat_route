@@ -33,7 +33,7 @@ class IGeocoder(ABC):
     '''
 
     @abstractmethod
-    def get_address(self, coordinates: Coordinate) -> Address:
+    async def get_address(self, coordinates: Coordinate) -> Address:
 
         '''
         Получить адрес по координатам.
@@ -42,7 +42,7 @@ class IGeocoder(ABC):
         pass
 
     @abstractmethod
-    def get_coordinates(self, address: Address) -> Coordinate:
+    async def get_coordinates(self, address: Address) -> Coordinate:
 
         '''
         Получить координаты по адресу.

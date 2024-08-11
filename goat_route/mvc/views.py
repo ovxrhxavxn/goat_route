@@ -112,7 +112,7 @@ class MainWindowView(View):
 
         addresses = []
 
-        for i, value in enumerate(self._entries_list):
+        for _, value in enumerate(self._entries_list):
 
             addresses.append(value.get())
 
