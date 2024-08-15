@@ -8,7 +8,11 @@ from core.mapping.geolocation import Coordinate, Address
 
 class TSPSolver:
 
+    """Класс для решения задачи коммивояжера"""
+
     class Solution:
+
+        """Класс, инкапсулирующий решение задачи"""
 
         def __init__(self, route, graph, solved_nodes, coords_nodes: dict):
             self.__route = route
@@ -33,6 +37,9 @@ class TSPSolver:
             return self.__coords_nodes
         
     class NetworkType(StrEnum):
+
+        """Перечисление тип передвижения передвижения"""
+
         WALK = 'walk',
         ALL = 'all',
         ALL_PUBLIC = 'all_public',
@@ -90,6 +97,9 @@ class TSPSolver:
         return route, solved_nodes
 
     def solve(self, address: Address, coordinates: list[Coordinate], network_type: NetworkType):
+
+        """Решить задачу"""
+
         graph, nodes_to_visit = self._build_graph_and_find_nodes(address, coordinates, network_type)
         route, solved_nodes = self._solve_tsp_and_get_route(graph, nodes_to_visit)
         coords_nodes = self.__fill_coords_nodes(coordinates, nodes_to_visit)

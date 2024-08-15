@@ -39,6 +39,8 @@ class Coordinate:
 @dataclass 
 class Address:
 
+    """Класс, инкапсулирующий адрес"""
+
     _country: str
     _city: str
     _street: str
