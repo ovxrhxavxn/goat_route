@@ -4,7 +4,7 @@ from dataclasses import dataclass
 class Coordinate:
 
     '''
-    Класс координат
+    Класс, инкапсулирущий координаты
     '''
 
     _longitude: float
