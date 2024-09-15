@@ -1,8 +1,8 @@
 import webbrowser
 import multiprocessing
+from pathlib import WindowsPath
 
 from ctkmvc.controller import Controller
-from pathlib import WindowsPath
 
 from resources.resource import Resource
 

@@ -1,10 +1,11 @@
-import osmnx as ox
-import networkx as nx
-
-from networkx.algorithms.approximation.traveling_salesman import traveling_salesman_problem
 from enum import StrEnum
 
+import osmnx as ox
+import networkx as nx
+from networkx.algorithms.approximation.traveling_salesman import traveling_salesman_problem
+
 from core.mapping.geolocation import Coordinate, Address
+
 
 class TSPSolver:
 

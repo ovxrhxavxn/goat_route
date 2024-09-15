@@ -1,8 +1,9 @@
+from pathlib import Path
+
 import folium
 import osmnx as ox
-
-from pathlib import Path
 from folium import Icon
+
 from .geolocation import Coordinate
 from ..tsp_solver import TSPSolver
 from resources.resource import Resource

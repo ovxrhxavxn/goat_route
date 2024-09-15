@@ -1,8 +1,8 @@
-import customtkinter as CTk
-import PIL
-
-from ctkmvc.view import View
 from pathlib import WindowsPath
+
+import PIL
+import customtkinter as CTk
+from ctkmvc.view import View
 
 from core.tsp_solver import TSPSolver
 from resources.resource import Resource
